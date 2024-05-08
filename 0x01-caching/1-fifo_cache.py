@@ -30,7 +30,7 @@ class FIFOCache(BaseCaching):
         """
         if key is None or item is None:
             return
-        
+
         self.cache_data[key] = item
 
         # If the cache exceeds MAX_ITEMS, discard the first item (FIFO)

@@ -44,7 +44,7 @@ class LFUCache(BaseCaching):
                 # Find the least frequently used key(s)
                 min_freq = min(self.keys_freq.values())
                 lfu_keys = [k for k, v in self.keys_freq.items() if v == min_freq]
-                lfu_key = lfu_keys[-1]  # Discard the least recently used among the least frequently used
+                lfu_key = lfu_keys[-1]
                 self.cache_data.pop(lfu_key)
                 self.keys_freq.pop(lfu_key)
                 print("DISCARD:", lfu_key)

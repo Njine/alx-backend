@@ -35,7 +35,7 @@ class MRUCache(BaseCaching):
             # Discard the most recently used item (MRU)
             mru_key, _ = self.cache_data.popitem(last=True)
             print("DISCARD:", mru_key)
-        
+
         # Add the new item and mark it as most recently used
         self.cache_data[key] = item
         self.cache_data.move_to_end(key, last=True)
@@ -52,7 +52,7 @@ class MRUCache(BaseCaching):
         """
         if key is None:
             return None
-        
+
         # If the key exists, mark it as most recently used
         if key in self.cache_data:
             self.cache_data.move_to_end(key, last=True)
