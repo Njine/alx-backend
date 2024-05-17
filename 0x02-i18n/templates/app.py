@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """A Basic Flask app with internationalization support."""
-from flask_babel import Babel, _
+import pytz
+from flask_babel import Babel, format_datetime
 from typing import Union, Dict
 from flask import Flask, render_template, request, g
+from datetime import datetime
 
 class Config:
     """Represents a Flask Babel configuration."""
@@ -37,24 +39,38 @@ def before_request() -> None:
 @babel.localeselector
 def get_locale() -> str:
     """Retrieve the locale for a web page."""
-    # Locale from URL parameters
     locale = request.args.get('locale')
     if locale and locale in app.config["LANGUAGES"]:
         return locale
-    # Locale from user settings
     if g.user and g.user['locale'] in app.config["LANGUAGES"]:
         return g.user['locale']
-    # Locale from request header
     header_locale = request.headers.get('locale')
     if header_locale and header_locale in app.config["LANGUAGES"]:
         return header_locale
-    # Default locale
     return request.accept_languages.best_match(app.config["LANGUAGES"])
+
+@babel.timezoneselector
+def get_timezone() -> str:
+    """Retrieve the timezone for a web page."""
+    timezone = request.args.get('timezone')
+    if timezone:
+        try:
+            return pytz.timezone(timezone).zone
+        except pytz.exceptions.UnknownTimeZoneError:
+            pass
+    if g.user and g.user['timezone']:
+        try:
+            return pytz.timezone(g.user['timezone']).zone
+        except pytz.exceptions.UnknownTimeZoneError:
+            pass
+    return app.config['BABEL_DEFAULT_TIMEZONE']
 
 @app.route('/')
 def get_index() -> str:
     """Render the home/index page."""
-    return render_template('6-index.html')
+    current_time = datetime.now(pytz.timezone(get_timezone()))
+    formatted_time = format_datetime(current_time)
+    return render_template('index.html', current_time=formatted_time)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
