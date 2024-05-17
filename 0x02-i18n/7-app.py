@@ -37,8 +37,7 @@ def before_request() -> None:
 
 @babel.localeselector
 def get_locale() -> str:
-    """Retrieve the locale for a web page."""
-    locale = request.args.get('locale')
+    """Retrieve web page locale."""
     if locale and locale in app.config["LANGUAGES"]:
         return locale
     if g.user and g.user['locale'] in app.config["LANGUAGES"]:
@@ -50,7 +49,7 @@ def get_locale() -> str:
 
 @babel.timezoneselector
 def get_timezone() -> str:
-    """Retrieve the timezone for a web page."""
+    """Retrieve  timezone for web page."""
     timezone = request.args.get('timezone')
     if timezone:
         try:
