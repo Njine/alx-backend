@@ -9,7 +9,7 @@ app.url_map.strict_slashes = False
 
 @app.route('/')
 def get_index() -> str:
-    """The home/index page."""
+    """Render the index page with Flask Babel."""
     return render_template('0-index.html')
 
 
