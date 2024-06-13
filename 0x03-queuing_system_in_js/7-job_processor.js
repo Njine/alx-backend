@@ -1,5 +1,3 @@
-#!/usr/bin/yarn dev
-
 import { createQueue } from 'kue';
 
 // Array of blacklisted phone numbers

@@ -1,6 +1,3 @@
-#!/usr/bin/yarn dev
-
-// Importing the Redis client creation function
 import { createClient } from 'redis';
 
 // Creating a Redis client instance

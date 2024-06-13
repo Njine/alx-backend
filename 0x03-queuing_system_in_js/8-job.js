@@ -1,5 +1,3 @@
-#!/usr/bin/yarn dev
-
 import kue from 'kue';
 
 /**

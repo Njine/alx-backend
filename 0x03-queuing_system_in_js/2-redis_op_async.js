@@ -1,6 +1,3 @@
-#!/usr/bin/yarn dev
-
-// Importing necessary functions from 'util' and 'redis'
 import { promisify } from 'util';
 import { createClient, print } from 'redis';
 

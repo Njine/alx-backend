@@ -1,5 +1,3 @@
-#!/usr/bin/yarn test
-
 import { expect } from 'chai';
 import kue from 'kue';
 import sinon from 'sinon';
